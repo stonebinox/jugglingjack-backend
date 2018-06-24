@@ -28,7 +28,6 @@ $app->register(new Silex\Provider\SessionServiceProvider, array(
 $app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), [
     "cors.allowOrigin" => "http://petstore.swagger.wordnik.com",
 ]);
-$app["cors-enabled"]($app);
 $app->before(function(Request $request) use($app){
     $request->getSession()->start();
 });
@@ -46,5 +45,6 @@ $app->post("/api/login", function(Request $request) use ($app){
     }
     return "INVALID_PARAMETERS";
 });
+$app["cors-enabled"]($app);
 $app->run();
 ?>
