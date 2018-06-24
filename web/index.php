@@ -35,7 +35,7 @@ $app->get("/",function() use($app){
     return $app['twig']->render("index.html.twig");
 });
 
-$controller = $app->post("/api/login", function(Request $request) use ($app){
+$app->post("/api/login", function(Request $request) use ($app){
     if (($request->get("email")) && ($request->get("password"))) {
         require("../classes/adminMaster.php");
         require("../classes/userMaster.php");
@@ -45,6 +45,7 @@ $controller = $app->post("/api/login", function(Request $request) use ($app){
     }
     return "INVALID_PARAMETERS";
 });
-$app["cors-enabled"]($controller);
+
 $app->run();
+$app["cors-enabled"]($app);
 ?>
