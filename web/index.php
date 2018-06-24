@@ -25,6 +25,10 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 $app->register(new Silex\Provider\SessionServiceProvider, array(
     'session.storage.save_path' => dirname(__DIR__) . '/tmp/sessions'
 ));
+$app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), [
+    "cors.allowOrigin" => "http://petstore.swagger.wordnik.com",
+]);
+$app["cors-enabled"]($app);
 $app->before(function(Request $request) use($app){
     $request->getSession()->start();
 });
