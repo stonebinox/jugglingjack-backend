@@ -22,8 +22,8 @@
         "symfony/translation": "~2.8|^3.0",
         "symfony/twig-bridge": "~2.8|^3.0",
         "symfony/validator": "~2.8|^3.0",
-		"doctrine/dbal": "~2.2",
-        "jdesrosiers/silex-cors-provider": "~1.0"
+		    "doctrine/dbal": "~2.2",
+        "texthtml/cors-silex": "^1.1"
     },
     "autoload": {
         "psr-0": { "": "src/" }

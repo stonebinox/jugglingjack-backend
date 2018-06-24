@@ -47,7 +47,7 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
     public $defaultGroup;
 
     /**
-     * @var MemberMetadata[]
+     * @var MemberMetadata[][]
      *
      * @internal This property is public in order to reduce the size of the
      *           class' serialized representation. Do not access it. Use
@@ -334,10 +334,8 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
 
     /**
      * Merges the constraints of the given metadata into this object.
-     *
-     * @param ClassMetadata $source The source metadata
      */
-    public function mergeConstraints(ClassMetadata $source)
+    public function mergeConstraints(self $source)
     {
         if ($source->isGroupSequenceProvider()) {
             $this->setGroupSequenceProvider(true);
@@ -502,11 +500,6 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
         return CascadingStrategy::NONE;
     }
 
-    /**
-     * Adds a property metadata.
-     *
-     * @param PropertyMetadataInterface $metadata
-     */
     private function addPropertyMetadata(PropertyMetadataInterface $metadata)
     {
         $property = $metadata->getPropertyName();

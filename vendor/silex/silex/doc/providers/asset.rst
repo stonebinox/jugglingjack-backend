@@ -12,6 +12,8 @@ Parameters
 
 * **assets.format_version** (optional): Default format for assets.
 
+* **assets.base_path**: Default path to prepend to all assets without a package.
+
 * **assets.named_packages** (optional): Named packages. Keys are the package
   names and values the configuration (supported keys are ``version``,
   ``version_format``, ``base_urls``, and ``base_path``).
@@ -53,7 +55,11 @@ Registering
 Usage
 -----
 
-The AssetServiceProvider is mostly useful with the Twig provider:
+The AssetServiceProvider is mostly useful with the Twig provider using the
+``asset()`` method. It takes two arguments. In the case of named
+packages, the first is the path relative to the base_path specified in the
+package definition and the second is the package name. For unmamed packages,
+there is only one argument, the path relative to the assets folder:
 
 .. code-block:: jinja
 

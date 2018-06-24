@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Silex\ServiceControllerResolver;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Unit tests for ServiceControllerResolver, see ServiceControllerResolverRouterTest for some
@@ -49,14 +50,14 @@ class ServiceControllerResolverTest extends Testcase
         $this->mockCallbackResolver->expects($this->once())
             ->method('convertCallback')
             ->with('some_service:methodName')
-            ->will($this->returnValue(array('callback')));
+            ->will($this->returnValue(['callback']));
 
         $this->app['some_service'] = function () { return new \stdClass(); };
 
         $req = Request::create('/');
         $req->attributes->set('_controller', 'some_service:methodName');
 
-        $this->assertEquals(array('callback'), $this->resolver->getController($req));
+        $this->assertEquals(['callback'], $this->resolver->getController($req));
     }
 
     public function testShouldUnresolvedControllerNames()
@@ -77,8 +78,15 @@ class ServiceControllerResolverTest extends Testcase
         $this->assertEquals(123, $this->resolver->getController($req));
     }
 
+    /**
+     * @group legacy
+     */
     public function testShouldDelegateGetArguments()
     {
+        if (Kernel::VERSION_ID >= 40000) {
+            self::markTestSkipped('HttpKernel < 4.0 is required');
+        }
+
         $req = Request::create('/');
         $this->mockResolver->expects($this->once())
             ->method('getArguments')

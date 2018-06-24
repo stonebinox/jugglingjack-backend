@@ -1,6 +1,23 @@
 Changelog
 =========
 
+2.2.3 (2018-02-25)
+------------------
+
+ * fixed validator integration into the security provider (order of registration of the validator and security providers does not matter anymore)
+ * fixed compatibility issues with Symfony 3.4
+
+2.2.2 (2018-01-12)
+------------------
+
+* [SECURITY] fixed before handlers not executed under mounts
+
+2.2.1 (2017-12-14)
+------------------
+
+* added support for Swiftmailer SSL stream_context_options option
+* fixed usage of namespaces for Twig paths
+
 2.2.0 (2017-07-23)
 ------------------
 
