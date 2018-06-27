@@ -20,7 +20,8 @@ if (!in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins) && !$wildcard) {
     // Origin is not allowed
     exit;
 }
-$origin = $wildcard && !$credentials ? '*' : $_SERVER['HTTP_ORIGIN'];
+// $origin = $wildcard && !$credentials ? '*' : $_SERVER['HTTP_ORIGIN'];
+$origin = "*";
 
 header("Access-Control-Allow-Origin: " . $origin);
 if ($credentials) {
