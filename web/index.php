@@ -43,8 +43,6 @@ $app->register(new Silex\Provider\SessionServiceProvider, array(
     'session.storage.save_path' => dirname(__DIR__) . '/tmp/sessions'
 ));
 
-// $app->register(new TH\Silex\CORS\CORSProvider);
-
 $app->before(function(Request $request) use($app){
     $request->getSession()->start();
 });
@@ -55,7 +53,6 @@ $app->get("/",function() use($app){
 
 $app->post("/api/login", function(Request $request) use($app){
     if (($request->get("email")) && ($request->get("password"))) {
-        echo "here";
         require("../classes/adminMaster.php");
         require("../classes/userMaster.php");
         $user = new userMaster;
