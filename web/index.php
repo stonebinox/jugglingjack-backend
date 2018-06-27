@@ -64,12 +64,12 @@ $app->get("/",function() use($app){
     return $app['twig']->render("index.html.twig");
 });
 
-$app->post("/api/login", function(Request $request) use ($app){
+$app->post("/api/login", function(Request $request) use($app){
     if (($request->get("email")) && ($request->get("password"))) {
         require("../classes/adminMaster.php");
         require("../classes/userMaster.php");
         $user = new userMaster;
-        $response = $user->loginUser($request->get("email"), $request->get("password"));
+        $response = $user->authenticateUser($request->get("email"), $request->get("password"));
         return $response;
     }
     return "INVALID_PARAMETERS";
