@@ -13,20 +13,8 @@ if (!isset($_SERVER['HTTP_ORIGIN'])) {
     exit;
 }
 
-$wildcard = TRUE; // Set $wildcard to TRUE if you do not plan to check or limit the domains
-$credentials = TRUE; // Set $credentials to TRUE if expects credential requests (Cookies, Authentication, SSL certificates)
-$allowedOrigins = array();
-if (!in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins) && !$wildcard) {
-    // Origin is not allowed
-    exit;
-}
-// $origin = $wildcard && !$credentials ? '*' : $_SERVER['HTTP_ORIGIN'];
-$origin = "*";
-
-header("Access-Control-Allow-Origin: " . $origin);
-if ($credentials) {
-    header("Access-Control-Allow-Credentials: true");
-}
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Origin");
 header('P3P: CP="CAO PSA OUR"'); // Makes IE to support cookies
