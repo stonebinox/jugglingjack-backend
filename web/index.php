@@ -25,7 +25,6 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 $app->register(new Silex\Provider\SessionServiceProvider, array(
     'session.storage.save_path' => dirname(__DIR__) . '/tmp/sessions'
 ));
-$app->register(new TH\Silex\CORS\CORSProvider);
 $app->before(function(Request $request) use($app){
     $request->getSession()->start();
 });
@@ -36,6 +35,7 @@ $app->before(function (Request $request) use($app) {
         $request->request->replace(is_array($data) ? $data : array());
     }
 });
+$app->register(new TH\Silex\CORS\CORSProvider);
 $app->get("/",function() use($app){
     return $app['twig']->render("index.html.twig");
 });
