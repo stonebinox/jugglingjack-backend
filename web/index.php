@@ -29,11 +29,19 @@ $app->register(new TH\Silex\CORS\CORSProvider);
 $app->before(function(Request $request) use($app){
     $request->getSession()->start();
 });
+
+$app->before(function (Request $request) use($app) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data =json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
 $app->get("/",function() use($app){
     return $app['twig']->render("index.html.twig");
 });
 
 $app->post("/api/login", function(Request $request) use ($app){
+    var_dump($request);
     if (($request->get("email")) && ($request->get("password"))) {
         require("../classes/adminMaster.php");
         require("../classes/userMaster.php");
