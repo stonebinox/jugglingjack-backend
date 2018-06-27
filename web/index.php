@@ -15,7 +15,7 @@ if (!isset($_SERVER['HTTP_ORIGIN'])) {
 
 $wildcard = TRUE; // Set $wildcard to TRUE if you do not plan to check or limit the domains
 $credentials = TRUE; // Set $credentials to TRUE if expects credential requests (Cookies, Authentication, SSL certificates)
-$allowedOrigins = array('https://jugglingjack.herokuapp.com', "http://localhost:3000");
+$allowedOrigins = array();
 if (!in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins) && !$wildcard) {
     // Origin is not allowed
     exit;
