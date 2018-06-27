@@ -66,6 +66,7 @@ $app->get("/",function() use($app){
 
 $app->post("/api/login", function(Request $request) use($app){
     if (($request->get("email")) && ($request->get("password"))) {
+        echo "here";
         require("../classes/adminMaster.php");
         require("../classes/userMaster.php");
         $user = new userMaster;
