@@ -69,7 +69,7 @@ $app->post("/api/signup", function(Request $request) use($app){
         require("../classes/planMaster.php");
         require("../classes/userMaster.php");
         $user = new userMaster;
-        $response = $user->createAccount($request->get("name"), $request->get("email"), $request->get("password1"), $request->get("password2"), $request->get("admin_id"));
+        $response = $user->createAccount($request->get("name"), $request->get("email"), $request->get("password1"), $request->get("password2"), $request->get("admin_id"), $request->get("city"), $request->get("country"), $request->get("plan_id"));
         return $response;
     }
     return "INVALID_PARAMETERS";

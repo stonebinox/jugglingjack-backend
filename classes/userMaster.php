@@ -137,7 +137,7 @@ class userMaster extends planMaster
             return "INVALID_USER_CREDENTIALS";
         }
     }
-    function createAccount($userName,$userEmail,$userPassword,$userPassword2,$adminID=1) //to create an account
+    function createAccount($userName,$userEmail,$userPassword,$userPassword2,$adminID=32, $city, $country, $planID = 2) //to create an account
     {
         $app=$this->app;
         $userName=trim(addslashes(htmlentities($userName)));
@@ -153,18 +153,27 @@ class userMaster extends planMaster
                         adminMaster::__construct($adminID);
                         if($this->adminValid)
                         {
-                            $um="SELECT iduser_master FROM user_master WHERE user_email='$userEmail' AND stat!='0'";
-                            $um=$app['db']->fetchAssoc($um);
-                            if(($um=="")||($um==NULL))
-                            {
-                                $hashPassword=md5($userPassword);
-                                $in="INSERT INTO user_master (timestamp,user_name,user_email,user_password) VALUES (NOW(),'$userName','$userEmail','$hashPassword')";
-                                $in=$app['db']->executeQuery($in);
-                                return "ACCOUNT_CREATED";
+                            $planID = addslashes(htmlentities($planID));
+                            planMaster::__construct($planID);
+                            if ($this->planValid) {
+                                $city = addslashes(htmlentities($city));
+                                $country = addslashes(htmlentities($country));
+                                $um="SELECT iduser_master FROM user_master WHERE user_email='$userEmail' AND stat!='0'";
+                                $um=$app['db']->fetchAssoc($um);
+                                if(($um=="")||($um==NULL))
+                                {
+                                    $hashPassword=md5($userPassword);
+                                    $in="INSERT INTO user_master (timestamp,user_name,user_email,user_password, admin_master_idadmin_master, user_city, user_country) VALUES (NOW(),'$userName','$userEmail','$hashPassword', '$adminID', '$city', '$country')";
+                                    $in=$app['db']->executeQuery($in);
+                                    return "ACCOUNT_CREATED";
+                                }
+                                else
+                                {
+                                    return "ACCOUNT_ALREADY_EXISTS";
+                                }
                             }
-                            else
-                            {
-                                return "ACCOUNT_ALREADY_EXISTS";
+                            else {
+                                return "INVALID_PLAN_ID";
                             }
                         }
                         else
