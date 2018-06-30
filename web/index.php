@@ -62,5 +62,16 @@ $app->post("/api/login", function(Request $request) use($app){
     return "INVALID_PARAMETERS";
 });
 
+$app->post("/api/signup", function(Request $request) use($app){
+    if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id"))) {
+        require("../classes/adminMaster.php");
+        require("../classes/userMaster.php");
+        $user = new userMaster;
+        $response = $user->createAccount($request->get("name"), $request->get("email"), $request->get("password1"), $request->get("password2"), $request->get("admin_id"));
+        return $response;
+    }
+    return "INVALID_PARAMETERS";
+});
+
 $app->run();
 ?>
