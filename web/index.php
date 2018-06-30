@@ -64,7 +64,7 @@ $app->post("/api/login", function(Request $request) use($app){
 });
 
 $app->post("/api/signup", function(Request $request) use($app){
-    if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id")) && ($request->get("plan_id"))) {
+    if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id")) && ($request->get("plan_id")) && ($request->get("country")) && ($request->get("city"))) {
         require("../classes/adminMaster.php");
         require("../classes/planMaster.php");
         require("../classes/userMaster.php");
