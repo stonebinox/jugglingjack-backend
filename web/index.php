@@ -54,6 +54,7 @@ $app->get("/",function() use($app){
 $app->post("/api/login", function(Request $request) use($app){
     if (($request->get("email")) && ($request->get("password"))) {
         require("../classes/adminMaster.php");
+        require("../classes/planMaster.php");
         require("../classes/userMaster.php");
         $user = new userMaster;
         $response = $user->authenticateUser($request->get("email"), $request->get("password"));
@@ -65,6 +66,7 @@ $app->post("/api/login", function(Request $request) use($app){
 $app->post("/api/signup", function(Request $request) use($app){
     if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id"))) {
         require("../classes/adminMaster.php");
+        require("../classes/planMaster.php");
         require("../classes/userMaster.php");
         $user = new userMaster;
         $response = $user->createAccount($request->get("name"), $request->get("email"), $request->get("password1"), $request->get("password2"), $request->get("admin_id"));

@@ -6,7 +6,7 @@ Last Modified: 22/10/17 18:41
 Comments: Main class file for user_master
 table.
 ----------------------------------------*/
-class userMaster extends adminMaster
+class userMaster extends planMaster
 {
     public $app=NULL;
     public $userValid=false;
@@ -26,7 +26,7 @@ class userMaster extends adminMaster
         {
             $userID=$this->user_id;
             $app=$this->app;
-            $um="SELECT admin_master_idadmin_master FROM user_master WHERE stat='1' AND iduser_master='$userID'";
+            $um="SELECT admin_master_idadmin_master, plan_master_idplan_master FROM user_master WHERE stat='1' AND iduser_master='$userID'";
             $um=$app['db']->fetchAssoc($um);
             if(($um!="")&&($um!=NULL))
             {
@@ -34,22 +34,15 @@ class userMaster extends adminMaster
                 adminMaster::__construct($adminID);
                 if($this->adminValid)
                 {
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    $planID = $um['plan_master_idplan_master'];
+                    planMaster::__construct($planID);
+                    if ($this->planValid) {
+                        return true;
+                    }
                 }
             }
-            else
-            {
-                return false;
-            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
     function getUser() //to get a user's details
     {
@@ -149,7 +142,7 @@ class userMaster extends adminMaster
         $app=$this->app;
         $userName=trim(addslashes(htmlentities($userName)));
         if(($userName!="")&&($userName!=NULL))
-        {  
+        {
             $userEmail=trim(addslashes(htmlentities($userEmail)));
             if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
                 if(strlen($userPassword)>=8)
@@ -238,4 +231,4 @@ class userMaster extends adminMaster
         }
     }
 }
-?> 
+?>
