@@ -40,6 +40,7 @@ class planMaster extends adminMaster
             $app = $this->app;
             $planID = $this->plan_id;
             $pm = "SELECT * FROM plan_master WHERE idplan_master = '$planID'";
+            echo $pm;
             $pm = $app['db']->fetchAssoc($pm);
             if (!empty($pm)) {
                 return $pm;
