@@ -67,5 +67,27 @@ class companyMaster extends userMaster
         }
         return $companyArray;
     }
+
+    function createCompany($companyName, $companyDescription) 
+    {
+        $app = $this->app;
+        $companyName = trim(addslashes(htmlentities(ucwords(strtolower($companyName)))));
+        if ($companyName != "") {
+            $companyDescription = trim(addslashes(htmlentities($companyDescription)));
+            if ($companyDescription != "") {
+                $cm = "SELECT idcompany_master FROM company_master WHERE stat = '1' AND company_name = '$companyName'";
+                $cm = $app['db']->fetchAssoc($cm);
+                if (empty($cm)) {
+                    $in = "INSERT INTO company_master (timestamp, company_name, company_description) VALUES (NOW(), '$companyName', '$companyDescription')";
+                    $in = $app['db']->executeQuery($in);
+                    $cm = "SELECT idcompany_master FROM company_master WHERE stat = '1' AND company_name = '$companyID' ORDER BY idcompany_master DESC LIMIT 1";
+                    $cm = $app['db']->fetchAssoc($cm);
+                }
+                return $cm['idcompany_master'];
+            }
+            return "INVALID_COMPANY_DESCRIPTION";
+        }
+        return "INVALID_COMPANY_NAME";
+    }
 }
 ?>

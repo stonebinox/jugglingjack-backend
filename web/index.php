@@ -61,12 +61,31 @@ $app->post("/api/login", function(Request $request) use($app){
 });
 
 $app->post("/api/signup", function(Request $request) use($app){
-    if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id")) && ($request->get("plan_id")) && ($request->get("country")) && ($request->get("city"))) {
+    if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id")) && ($request->get("plan_id")) && ($request->get("country")) && ($request->get("city")) && ($request->get("company")) && ($request->get("company_description"))) {
         require("../classes/adminMaster.php");
         require("../classes/planMaster.php");
         require("../classes/userMaster.php");
+        require("../classes/companyMaster.php");
+        require("../classes/companyMemberMaster.php");
         $user = new userMaster;
         $response = $user->createAccount($request->get("name"), $request->get("email"), $request->get("password1"), $request->get("password2"), $request->get("admin_id"), $request->get("city"), $request->get("country"), $request->get("plan_id"));
+        if ($response == "ACCOUNT_CREATED") {
+            if ($request->get("admin_id") == 2) {
+                $company = new companyMaster;
+                $r2 = $company->createCompany($request->get("company"), $request->get("company_description"));
+                if (is_numeric($r2)) {
+                    $companyMember = new companyMember;
+                    $userID = $user->getUserIDFromEmail($request->get("email"));
+                    $r2 = $companyMember->addCompanyMember($r2, $userID);
+                    if ($r2 != "COMPANY_MEMBER_ADDED") {
+                        return $r2;
+                    }
+                }
+                else {
+                    return $r2;
+                }
+            }            
+        }
         return $response;
     }
     return "INVALID_PARAMETERS";
