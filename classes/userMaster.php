@@ -155,6 +155,7 @@ class userMaster extends planMaster
                         {
                             $planID = addslashes(htmlentities($planID));
                             planMaster::__construct($planID);
+                            echo $this->planValid;
                             if ($this->planValid) {
                                 $city = addslashes(htmlentities($city));
                                 $country = addslashes(htmlentities($country));

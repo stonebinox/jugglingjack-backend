@@ -28,7 +28,6 @@ class planMaster extends adminMaster
             $pm = "SELECT idplan_master FROM plan_master WHERE stat = '1' AND idplan_master = '$planID'";
             $pm = $app['db']->fetchAssoc($pm);
             if (!empty($pm)) {
-                echo "here";
                 return true;
             }
         }
