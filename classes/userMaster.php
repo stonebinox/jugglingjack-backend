@@ -173,7 +173,7 @@ class userMaster extends planMaster
                                 }
                             }
                             else {
-                                return "INVALID_PLAN_ID";
+                                return "INVALID_PLAN_ID_".$planID;
                             }
                         }
                         else

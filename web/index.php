@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 if (!isset($_SERVER['HTTP_ORIGIN'])) {
-    // This is not cross-domain request
     exit;
 }
 
@@ -17,9 +16,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Origin");
-header('P3P: CP="CAO PSA OUR"'); // Makes IE to support cookies
-
-// Handling the Preflight
+header('P3P: CP="CAO PSA OUR"'); 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit;
 }
