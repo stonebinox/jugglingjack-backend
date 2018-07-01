@@ -16,7 +16,7 @@ class planMaster extends adminMaster
         $this->app = $GLOBALS['app'];
         if ($planID != NULL) {
             $this->plan_id = addslashes(htmlentities($planID));
-            $this->$planValid = $this->verifyPlan();
+            $this->planValid = $this->verifyPlan();
         }
     }
 
@@ -40,7 +40,6 @@ class planMaster extends adminMaster
             $app = $this->app;
             $planID = $this->plan_id;
             $pm = "SELECT * FROM plan_master WHERE idplan_master = '$planID'";
-            echo $pm;
             $pm = $app['db']->fetchAssoc($pm);
             if (!empty($pm)) {
                 return $pm;
