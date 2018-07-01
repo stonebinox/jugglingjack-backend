@@ -77,6 +77,7 @@ $app->post("/api/signup", function(Request $request) use($app){
                     $companyMember = new companyMemberMaster;
                     $userID = $user->getUserIDFromEmail($request->get("email"));
                     $r2 = $companyMember->addCompanyMember($r2, $userID);
+                    echo $r2;
                     if ($r2 != "COMPANY_MEMBER_ADDED") {
                         return $r2;
                     }
