@@ -80,6 +80,7 @@ $app->post("/api/signup", function(Request $request) use($app){
                     if ($r2 != "COMPANY_MEMBER_ADDED") {
                         return $r2;
                     }
+                    return "ACCOUNT_CREATED";
                 }
                 else {
                     return $r2;
