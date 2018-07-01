@@ -16,7 +16,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Origin");
-header('P3P: CP="CAO PSA OUR"'); 
+header('P3P: CP="CAO PSA OUR"');
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit;
 }
@@ -61,7 +61,7 @@ $app->post("/api/login", function(Request $request) use($app){
 });
 
 $app->post("/api/signup", function(Request $request) use($app){
-    if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id")) && ($request->get("plan_id")) && ($request->get("country")) && ($request->get("city")) && ($request->get("company")) && ($request->get("company_description"))) {
+    if (($request->get("name")) && ($request->get("email")) && ($request->get("password1")) && ($request->get("password2")) && ($request->get("admin_id")) && ($request->get("plan_id")) && ($request->get("country")) && ($request->get("city"))) {
         require("../classes/adminMaster.php");
         require("../classes/planMaster.php");
         require("../classes/userMaster.php");
@@ -72,7 +72,7 @@ $app->post("/api/signup", function(Request $request) use($app){
         if (strpos($response, "ACCOUNT_CREATED_") !== false) {
             if ($request->get("admin_id") == 2) {
                 $company = new companyMaster;
-                $r2 = $company->createCompany($request->get("company"), $request->get("company_description"));                
+                $r2 = $company->createCompany($request->get("company"), $request->get("company_description"));
                 if (is_numeric($r2)) {
                     $companyMember = new companyMemberMaster;
                     $e = explode("ACCOUNT_CREATED_", $response);
@@ -85,7 +85,7 @@ $app->post("/api/signup", function(Request $request) use($app){
                 else {
                     return $r2;
                 }
-            }            
+            }
         }
         return $response;
     }
