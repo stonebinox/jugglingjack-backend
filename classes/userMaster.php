@@ -165,7 +165,9 @@ class userMaster extends planMaster
                                     $hashPassword=md5($userPassword);
                                     $in="INSERT INTO user_master (timestamp,user_name,user_email,user_password, admin_master_idadmin_master, user_city, user_country, plan_master_idplan_master) VALUES (NOW(),'$userName','$userEmail','$hashPassword', '$adminID', '$city', '$country', '$planID')";
                                     $in=$app['db']->executeQuery($in);
-                                    return "ACCOUNT_CREATED";
+                                    $um = "SELECT iduser_master FROM user_master WHERE stat = '1' AND user_email = '$userEmail'";
+                                    $um = $app['db']->fetchAssoc($um);
+                                    return "ACCOUNT_CREATED_" . $um['iduser_master'];
                                 }
                                 else
                                 {
