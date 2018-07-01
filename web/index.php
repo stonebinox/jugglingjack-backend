@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => 'php://stderr',
 ));
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/views',
-));
+// $app->register(new Silex\Provider\TwigServiceProvider(), array(
+//     'twig.path' => __DIR__.'/views',
+// ));
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
       'driver' => 'pdo_mysql',
@@ -45,7 +45,7 @@ $app->before(function(Request $request) use($app){
 });
 
 $app->get("/",function() use($app){
-    return $app['twig']->render("index.html.twig");
+    return "INVALID_PARAMETERS";
 });
 
 $app->post("/api/login", function(Request $request) use($app){
