@@ -163,7 +163,7 @@ class userMaster extends planMaster
                                 if(($um=="")||($um==NULL))
                                 {
                                     $hashPassword=md5($userPassword);
-                                    $in="INSERT INTO user_master (timestamp,user_name,user_email,user_password, admin_master_idadmin_master, user_city, user_country) VALUES (NOW(),'$userName','$userEmail','$hashPassword', '$adminID', '$city', '$country')";
+                                    $in="INSERT INTO user_master (timestamp,user_name,user_email,user_password, admin_master_idadmin_master, user_city, user_country, plan_master_idplan_master) VALUES (NOW(),'$userName','$userEmail','$hashPassword', '$adminID', '$city', '$country', '$planID')";
                                     $in=$app['db']->executeQuery($in);
                                     return "ACCOUNT_CREATED";
                                 }
