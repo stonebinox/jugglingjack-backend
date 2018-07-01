@@ -14,7 +14,7 @@ class companyMaster extends userMaster
     function __construct($companyID = NULL)
     {
         $this->app = $GLOBALS['app'];
-        if ($this->company_id != NULL) {
+        if ($companyID != NULL) {
             $this->company_id = addslashes(htmlentities($companyID));
             $this->companyValid = $this->verifyCompany();
         }
