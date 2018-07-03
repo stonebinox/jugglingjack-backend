@@ -79,7 +79,6 @@ $app->post("/api/signup", function(Request $request) use($app){
                     $e = explode("ACCOUNT_CREATED_", $response);
                     $userID = $e[1];
                     $r2 = $companyMember->addCompanyMember($r2, $userID);
-                    echo $r2.'<br>';
                     if ($r2 != "COMPANY_MEMBER_ADDED") {
                         return $r2;
                     }
