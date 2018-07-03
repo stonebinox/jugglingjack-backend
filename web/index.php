@@ -73,7 +73,6 @@ $app->post("/api/signup", function(Request $request) use($app){
             if ($request->get("admin_id") == 2) {
                 $company = new companyMaster;
                 $r2 = $company->createCompany($request->get("company"), $request->get("company_description"));
-                echo $r2.'<br>';
                 if (is_numeric($r2)) {
                     $companyMember = new companyMemberMaster;
                     $e = explode("ACCOUNT_CREATED_", $response);
