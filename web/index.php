@@ -92,5 +92,23 @@ $app->post("/api/signup", function(Request $request) use($app){
     return "INVALID_PARAMETERS";
 });
 
+$app->get("/api/getActiveApplications", function(Request $request) use($app){
+    require("../classes/adminMaster.php");
+    require("../classes/planMaster.php");
+    require("../classes/userMaster.php");
+    require("../classes/companyMaster.php");
+    require("../classes/companyMemberMaster.php");
+    require("../classes/applicationMaster.php");
+    $offset = 0;
+    if ($request->get("offset")) {
+        $offset = $request->get("offset");
+    }
+    $application = new applicationMaster;
+    $response = $application->getAllActiveApplications($offset);
+    return $response;
+});
+
+
+
 $app->run();
 ?>

@@ -2,7 +2,7 @@
 /*------------------------------
 Author: Anoop Santhanam
 Date Created: 10/7/18 00:11
-Last modified: 10/7/18 00:11
+Last modified: 11/7/18 21:08
 Comments: Main class file for
 application_master table.
 ------------------------------*/
@@ -82,5 +82,29 @@ class applicationMaster extends companyMemberMaster
             return "NO_APPLICATIONS_FOUND";
         }
         return "INVALID_COMPANY_ID";
+    }
+
+    function getAllActiveApplications($offset = 0)
+    {
+        $app = $this->app;
+        $offset = addslashes(htmlentities($offset));
+        if (($offset != NULL) && (is_numeric($offset)) && ($offset >= 0)) {
+            $am = "SELECT idapplication_master FROM application_master WHERE stat = '1' ORDER BY idapplication_master DESC LIMIT $offset, 20";
+            $am = $app['db']->fetchAll($am);
+            $applicationArray = [];
+            foreach ($am as $applicationData) {
+                $applicationID = $am['idapplication_master'];
+                $this->__construct($applicationID);
+                $application = $this->getApplication();
+                if (is_array($application)) {
+                    array_push($applicationArray, $application);
+                }
+            }
+            if (!empty($applicationArray)) {
+                return $applicationArray;
+            }
+            return "NO_APPLICATIONS_FOUND";
+        }
+        return "INVALID_OFFSET_VALUE";
     }
 }
