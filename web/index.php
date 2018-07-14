@@ -108,7 +108,24 @@ $app->get("/api/getActiveApplications", function(Request $request) use($app){
     return $response;
 });
 
-
+$app->post("/api/createApplication", function(Request $request) use($app) {
+    if (($request->get("company_id")) && ($request->get("application_title"))) {
+        require("../classes/adminMaster.php");
+        require("../classes/planMaster.php");
+        require("../classes/userMaster.php");
+        require("../classes/companyMaster.php");
+        require("../classes/companyMemberMaster.php");
+        require("../classes/applicationMaster.php");
+        $application = new applicationMaster;
+        $description = "";
+        if (($request->get("application_description")) && ($request->get("application_title") != "")){
+            $description = $request->get("application_description");
+        }
+        $response = $application->createApplication($request->get("application_title"), $description);
+        return $response;
+    }
+    return "INVALID_PARAMETERS";
+});
 
 $app->run();
 ?>

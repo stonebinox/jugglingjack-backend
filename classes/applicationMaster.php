@@ -107,4 +107,26 @@ class applicationMaster extends companyMemberMaster
         }
         return "INVALID_OFFSET_VALUE";
     }
+
+    function createApplication($companyID, $applicationTitle, $applicationDescription = "") 
+    {
+        $companyID = addslashes(htmlentities($companyID));
+        companyMaster::__construct($companyID);
+        if ($this->companyValid) {
+            $applicationTitle = trim(ucwords(strtolower(addslashes(htmlentities($applicationTitle)))));
+            if ($applicationTitle != "") {
+                $applicationDescription = trim(addslashes(htmlentities($applicationDescription)));
+                $app = $this->app;
+                $applications = $this->getApplicationsFromCompany($companyID);
+                if (!is_array($applications)) { //ideally need to check plan and check the limit that they can post
+                    $in = "INSERT INTO application_master (timestamp, company_master_idcompany_master, application_title, application_description) VALUES (NOW(), '$companyID', '$applicationTitle', '$applicationDescription')";
+                    $in = $app['db']->executeQuery($in);
+                    return "APPLICATION_CREATED";
+                }
+                return "APPLICATION_ALREADY_EXISTS";
+            }
+            return "INVALID_APPLICATION_TITLE";
+        }
+        return "INVALID_COMPANY_ID";
+    }
 }
