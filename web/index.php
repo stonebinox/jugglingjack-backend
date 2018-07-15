@@ -127,5 +127,29 @@ $app->post("/api/createApplication", function(Request $request) use($app) {
     return "INVALID_PARAMETERS";
 });
 
+$app->get("/api/getUserID", function(Request $request) use($app) {
+    if ($request->get("user_email")) {
+        require("../classes/adminMaster.php");
+        require("../classes/planMaster.php");
+        require("../classes/userMaster.php");
+        $user = new userMaster;
+        $userEmail = $user->getUserIDFromEmail($request->get("user_email"));
+        return $userEmail;
+    }
+    return "INVALID_PARAMETERS";
+});
+
+$app->get("/api/getUser", function(Request $request) use($app) {
+    if ($request->get("user_id")) {
+        require("../classes/adminMaster.php");
+        require("../classes/planMaster.php");
+        require("../classes/userMaster.php");
+        $user = new userMaster($request->get("user_id"));
+        $userData = $user->getUser();
+        return $userData;
+    }
+    return "INVALID_PARAMETERS";
+});
+
 $app->run();
 ?>
