@@ -89,5 +89,22 @@ class companyMaster extends userMaster
         }
         return "INVALID_COMPANY_NAME";
     }
+
+    function updateApplicationFlag($flag)
+    {
+        if ($this->companyValid) {
+            $companyID = $this->company_id;
+            $app = $this->app;
+            if ($flag) {
+                $up = "UPDATE company_master SET application_flag = '1' WHERE idcompany_master = '$companyID'";
+            }
+            else {
+                $up = "UPDATE company_master SET application_flag = '0' WHERE idcompany_master = '$companyID'";
+            }
+            $up = $app['db']->executeUpdate($up);
+            return "COMPANY_APPLICATION_UPDATED";
+        }
+        return INVALID_COMPANY_ID";
+    }
 }
 ?>

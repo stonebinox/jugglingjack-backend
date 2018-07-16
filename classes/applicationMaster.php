@@ -6,13 +6,13 @@ Last modified: 11/7/18 21:08
 Comments: Main class file for
 application_master table.
 ------------------------------*/
-class applicationMaster extends companyMemberMaster 
+class applicationMaster extends companyMemberMaster
 {
     public $app = NULL;
     public $applicationValid = FALSE;
     private $application_id = NULL;
 
-    function __construct($applicationID = NULL) 
+    function __construct($applicationID = NULL)
     {
         $this->app = $GLOBALS['app'];
         if ($applicationID != NULL) {
@@ -35,7 +35,7 @@ class applicationMaster extends companyMemberMaster
                     return TRUE;
                 }
             }
-        } 
+        }
         return FALSE;
     }
 
@@ -108,7 +108,7 @@ class applicationMaster extends companyMemberMaster
         return "INVALID_OFFSET_VALUE";
     }
 
-    function createApplication($companyID, $applicationTitle, $applicationDescription = "") 
+    function createApplication($companyID, $applicationTitle, $applicationDescription = "")
     {
         $companyID = addslashes(htmlentities($companyID));
         companyMaster::__construct($companyID);
@@ -121,11 +121,62 @@ class applicationMaster extends companyMemberMaster
                 if (!is_array($applications)) { //ideally need to check plan and check the limit that they can post
                     $in = "INSERT INTO application_master (timestamp, company_master_idcompany_master, application_title, application_description) VALUES (NOW(), '$companyID', '$applicationTitle', '$applicationDescription')";
                     $in = $app['db']->executeQuery($in);
+                    $r = companyMaster::updateApplicationFlag(true);
                     return "APPLICATION_CREATED";
                 }
                 return "APPLICATION_ALREADY_EXISTS";
             }
             return "INVALID_APPLICATION_TITLE";
+        }
+        return "INVALID_COMPANY_ID";
+    }
+
+    function getCompanyID()
+    {
+        if ($this->applicationValid) {
+            $applicationID = $this->application_id;
+            $app = $this->app;
+            $am = "SELECT company_master_idcompany_master FROM application_master WHERE idapplication_master = '$applicationID'";
+            $am = $app['db']->fetchAssoc($am);
+            if (!empty($am)) {
+                return $am['company_master_idcompany_master'];
+            }
+        }
+        return "INVALID_APPLICATION_ID";
+    }
+
+    function deleteApplication()
+    {
+        if ($this->applicationValid) {
+            $applicationID = $this->application_id;
+            $app = $this->app;
+            $companyID = $this->getCompanyID();
+            $am = "UPDATE application_master SET stat = '0' WHERE idapplication_master = '$applicationID'";
+            $am = $app['db']->executeUpdate($am);
+            companyMaster::__construct($companyID);
+            $r = companyMaster::updateApplicationFlag(false);
+            return "APPLICATION_DELETED";
+        }
+        return "INVALID_APPLICATION_ID";
+    }
+
+    function deleteApplicationFromCompanyID($companyID)
+    {
+        $companyID = addslashes(htmlentities($companyID));
+        companyMaster::__construct($companyID);
+        if ($this->companyValid) {
+            $app = $this->app;
+            $am = "SELECT idapplication_master FROM application_master WHERE company_master_idcompany_master = '$companyID' AND stat = '1'";
+            $am = $app['db']->fetchAssoc($am);
+            if (!empty($am)) {
+                $applicationID = $am['idapplication_master'];
+                $this->__construct($applicationID);
+                $r = $this->deleteApplication();
+                return $r;
+            }
+            else {
+                return "NO_COMPANIES_FOUND";
+            }
         }
         return "INVALID_COMPANY_ID";
     }
