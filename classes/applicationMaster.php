@@ -66,12 +66,14 @@ class applicationMaster extends companyMemberMaster
         if ($this->companyValid) {
             $app = $this->app;
             $am = "SELECT idapplication_master FROM application_master WHERE stat = '1' AND company_master_idcompany_master = '$companyID'";
+            echo $am;
             $am = $app['db']->fetchAll($am);
             $applicationArray = [];
             foreach ($am as $application) {
                 $applicationID = $application['idapplication_master'];
                 $this->__construct($applicationID);
                 $appicationData = $this->getApplication();
+                echo "here";
                 if (is_array($applicationData)) {
                     array_push($applicationArray, $applicationData);
                 }
