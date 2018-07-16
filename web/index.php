@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 if (!isset($_SERVER['HTTP_ORIGIN'])) {
-    exit;
+    // exit;
 }
 
 header("Access-Control-Allow-Origin: *");
