@@ -121,7 +121,7 @@ $app->post("/api/createApplication", function(Request $request) use($app) {
         if (($request->get("application_description")) && ($request->get("application_title") != "")){
             $description = $request->get("application_description");
         }
-        $response = $application->createApplication($request->get("application_title"), $description);
+        $response = $application->createApplication($request->get("company_id"), $request->get("application_title"), $description);
         return $response;
     }
     return "INVALID_PARAMETERS";
