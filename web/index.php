@@ -156,7 +156,6 @@ $app->get("/api/getUser", function(Request $request) use($app) {
 
 $app->get("/api/getCompanyFromUserID", function(Request $request) use($app){
     if ($request->get("user_id")) {
-        echo $request->get("user_id");
         require("../classes/adminMaster.php");
         require("../classes/planMaster.php");
         require("../classes/userMaster.php");
