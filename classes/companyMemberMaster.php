@@ -115,5 +115,26 @@ class companyMemberMaster extends companyMaster
         }
         return "INVALID_COMPANY_ID";
     }
+
+    function getCompanyFromUserID($userID)
+    {
+        $userID = addslashes(htmlentities($userID));
+        userMaster::__construct($userID);
+        if ($this->userValid) {
+            $app = $this->app;
+            $cm = "SELECT company_master_idcompany_master FROM company_member_master WHERE user_master_iduser_master = '$userID' AND stat = '1' ORDER BY idcompany_member_master DESC LIMIT 1";
+            $cm = $app['db']->fetchAssoc($cm);
+            if (!empty($cm)) {
+                $companyID = $cm['company_master_idcompany_master'];
+                companyMaster::__construct($companyID);
+                $company = companyMaster::getCompany();
+                if (is_array($company)) {
+                    return $company;
+                }
+                return "INVALID_COMPANY_ID";
+            }
+        }
+        return "INVALID_USER_ID";
+    }
 }
 ?>

@@ -154,5 +154,22 @@ $app->get("/api/getUser", function(Request $request) use($app) {
     return "INVALID_PARAMETERS";
 });
 
+$app->get("/api/getCompanyFromUserID", function(Request $request) use($app){
+    if ($request->get("user_id")) {
+        require("../classes/adminMaster.php");
+        require("../classes/planMaster.php");
+        require("../classes/userMaster.php");
+        require("../classes/companyMaster.php");
+        require("../classes/companyMemberMaster.php");
+        $company = new companyMemberMaster;
+        $companyData = $company->getCompanyFromUserID($request->get("user_id"));
+        if (is_array($companyData)) {
+            return json_encode($companyData);
+        }
+        return $companyData;
+    }
+    return "INVALID_PARAMETERS";
+});
+
 $app->run();
 ?>

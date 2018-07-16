@@ -68,7 +68,7 @@ class companyMaster extends userMaster
         return $companyArray;
     }
 
-    function createCompany($companyName, $companyDescription) 
+    function createCompany($companyName, $companyDescription)
     {
         $app = $this->app;
         $companyName = trim(addslashes(htmlentities(ucwords(strtolower($companyName)))));
