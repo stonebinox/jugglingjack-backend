@@ -52,7 +52,7 @@ class userMaster extends planMaster
             $userID=$this->user_id;
             $um="SELECT * FROM user_master WHERE iduser_master='$userID'";
             $um=$app['db']->fetchAssoc($um);
-            if(($um!="")&&($um!=NULL))
+            if (!empty($um)) 
             {
                 $adminID=$um['admin_master_idadmin_master'];
                 adminMaster::__construct($adminID);
@@ -60,6 +60,12 @@ class userMaster extends planMaster
                 if(is_array($admin))
                 {
                     $um['admin_master_idadmin_master']=$admin;
+                }
+                $planID = $um['plan_master_idplan_master'];
+                planMaster::__construct($planID);
+                $plan = planMaster::getPlan();
+                if (is_array($plan)) {
+                    $um['plan_master_idplan_master'] = $plan;
                 }
                 return $um;
             }
