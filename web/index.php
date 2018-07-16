@@ -146,6 +146,7 @@ $app->get("/api/getUser", function(Request $request) use($app) {
         require("../classes/userMaster.php");
         $user = new userMaster($request->get("user_id"));
         $userData = $user->getUser();
+        var_dump(json_encode($userData));
         return $userData;
     }
     return "INVALID_PARAMETERS";
