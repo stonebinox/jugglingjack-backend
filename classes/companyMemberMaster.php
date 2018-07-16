@@ -120,7 +120,6 @@ class companyMemberMaster extends companyMaster
     {
         $userID = addslashes(htmlentities($userID));
         userMaster::__construct($userID);
-        echo $userID;
         if ($this->userValid) {
             $app = $this->app;
             $cm = "SELECT company_master_idcompany_master FROM company_member_master WHERE user_master_iduser_master = '$userID' AND stat = '1' ORDER BY idcompany_member_master DESC LIMIT 1";
