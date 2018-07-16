@@ -105,6 +105,9 @@ $app->get("/api/getActiveApplications", function(Request $request) use($app){
     }
     $application = new applicationMaster;
     $response = $application->getAllActiveApplications($offset);
+    if (is_array($response)) {
+        return json_encode($response);
+    }
     return $response;
 });
 
