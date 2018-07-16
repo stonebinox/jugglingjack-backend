@@ -104,7 +104,7 @@ class companyMaster extends userMaster
             $up = $app['db']->executeUpdate($up);
             return "COMPANY_APPLICATION_UPDATED";
         }
-        return INVALID_COMPANY_ID";
+        return "INVALID_COMPANY_ID";
     }
 }
 ?>
