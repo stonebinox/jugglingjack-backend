@@ -44,11 +44,11 @@ class applicationMaster extends companyMemberMaster
         if ($this->applicationValid) {
             $app = $this->app;
             $applicationID = $this->application_id;
-            echo $applicationID;
             $am = "SELECT * FROM application_master WHERE idapplication_master = '$applicationID'";
             $am = $app['db']->fetchAssoc($am);
             if (!empty($am)) {
                 $companyID = $am['company_master_idcompany_master'];
+                echo $companyID;
                 companyMaster::__construct($companyID);
                 $company = companyMaster::getCompany();
                 if (is_array($company)) {
