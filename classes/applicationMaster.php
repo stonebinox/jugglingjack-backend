@@ -76,6 +76,7 @@ class applicationMaster extends companyMemberMaster
                     array_push($applicationArray, $applicationData);
                 }
             }
+            echo count($applicationArray);
             if (!empty($applicationArray)) {
                 return $applicationArray;
             }
