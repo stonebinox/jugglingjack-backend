@@ -72,11 +72,11 @@ class applicationMaster extends companyMemberMaster
                 $applicationID = $application['idapplication_master'];
                 $this->__construct($applicationID);
                 $appicationData = $this->getApplication();
+                echo $applicationData;
                 if (is_array($applicationData)) {
                     array_push($applicationArray, $applicationData);
                 }
             }
-            echo count($applicationArray);
             if (!empty($applicationArray)) {
                 return $applicationArray;
             }
