@@ -71,7 +71,7 @@ class applicationMaster extends companyMemberMaster
             foreach ($am as $application) {
                 $applicationID = $application['idapplication_master'];
                 $this->__construct($applicationID);
-                echo trim($this->applicationValid);
+                echo $this->getApplication();
                 $appicationData = $this->getApplication();
                 
                 if (is_array($applicationData)) {
