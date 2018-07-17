@@ -53,7 +53,6 @@ class applicationMaster extends companyMemberMaster
                 if (is_array($company)) {
                     $am['company_master_idcompany_master'] = $company;
                 }
-                var_dump($am);
                 return $am;
             }
         }
@@ -73,6 +72,7 @@ class applicationMaster extends companyMemberMaster
                 $applicationID = $application['idapplication_master'];
                 $this->__construct($applicationID);
                 $appicationData = $this->getApplication();
+                var_dump($applicationData);
                 if (is_array($applicationData)) {
                     array_push($applicationArray, $applicationData);
                 }
