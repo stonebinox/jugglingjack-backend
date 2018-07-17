@@ -44,6 +44,7 @@ class applicationMaster extends companyMemberMaster
         if ($this->applicationValid) {
             $app = $this->app;
             $applicationID = $this->application_id;
+            echo $applicationID;
             $am = "SELECT * FROM application_master WHERE idapplication_master = '$applicationID'";
             $am = $app['db']->fetchAssoc($am);
             if (!empty($am)) {
@@ -71,8 +72,8 @@ class applicationMaster extends companyMemberMaster
             foreach ($am as $application) {
                 $applicationID = $application['idapplication_master'];
                 $this->__construct($applicationID);
+                echo $applicationID . ' ';
                 $appicationData = $this->getApplication();
-                echo $applicationData;
                 if (is_array($applicationData)) {
                     array_push($applicationArray, $applicationData);
                 }
