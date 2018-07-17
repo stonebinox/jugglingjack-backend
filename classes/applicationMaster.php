@@ -72,8 +72,8 @@ class applicationMaster extends companyMemberMaster
                 $applicationID = $application['idapplication_master'];
                 $this->__construct($applicationID);
                 $appicationData = $this->getApplication();
+                var_dump($applicationData);
                 if (is_array($applicationData)) {
-                    echo "here";
                     array_push($applicationArray, $applicationData);
                 }
             }
