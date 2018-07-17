@@ -174,9 +174,7 @@ class applicationMaster extends companyMemberMaster
                 $r = $this->deleteApplication();
                 return $r;
             }
-            else {
-                return "NO_COMPANIES_FOUND";
-            }
+            return "NO_APPLICATIONS_FOUND";
         }
         return "INVALID_COMPANY_ID";
     }

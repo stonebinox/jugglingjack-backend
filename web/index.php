@@ -192,5 +192,20 @@ $app->get("/api/getApplicationsFromCompany", function(Request $request) use($app
     return "INVALID_PARAMETERS";
 });
 
+$app->get("/api/deleteApplicationFromCompanyID", function(Request $request) use($app){
+        if ($request->get("company_id")) {
+            require("../classes/adminMaster.php");
+            require("../classes/planMaster.php");
+            require("../classes/userMaster.php");
+            require("../classes/companyMaster.php");
+            require("../classes/companyMemberMaster.php");
+            require("../classes/applicationMaster.php");
+            $application = new applicationMaster;
+            $response = $application->deleteApplicationFromCompanyID($request->get("company_id"));
+            return $response;
+        }
+        return "INVALID_PARAMETERS";
+});
+
 $app->run();
 ?>
