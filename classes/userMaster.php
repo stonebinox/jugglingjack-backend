@@ -52,7 +52,7 @@ class userMaster extends planMaster
             $userID=$this->user_id;
             $um="SELECT * FROM user_master WHERE iduser_master='$userID'";
             $um=$app['db']->fetchAssoc($um);
-            if (!empty($um)) 
+            if (!empty($um))
             {
                 $adminID=$um['admin_master_idadmin_master'];
                 adminMaster::__construct($adminID);
@@ -164,7 +164,7 @@ class userMaster extends planMaster
                             if ($this->planValid) {
                                 $city = addslashes(htmlentities($city));
                                 $country = addslashes(htmlentities($country));
-                                $um="SELECT iduser_master FROM user_master WHERE user_email='$userEmail' AND stat!='0'";
+                                $um="SELECT iduser_master FROM user_master WHERE user_email='$userEmail' AND stat='1'";
                                 $um=$app['db']->fetchAssoc($um);
                                 if(($um=="")||($um==NULL))
                                 {
