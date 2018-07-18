@@ -79,10 +79,10 @@ $app->post("/api/signup", function(Request $request) use($app){
                     $e = explode("ACCOUNT_CREATED_", $response);
                     $userID = $e[1];
                     $r2 = $companyMember->addCompanyMember($companyID, $userID);
-                    return $r2;
-                    // if ($r2 != "COMPANY_MEMBER_ADDED") {
-                    //     return $r2;
-                    // }
+                    if ($r2 != "COMPANY_MEMBER_ADDED") {
+                        return $r2;
+                    }
+                    return $response;
                 }
                 return $r2;
             }
