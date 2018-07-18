@@ -69,7 +69,7 @@ $app->post("/api/signup", function(Request $request) use($app){
         require("../classes/companyMemberMaster.php");
         $user = new userMaster;
         $response = $user->createAccount($request->get("name"), $request->get("email"), $request->get("password1"), $request->get("password2"), $request->get("admin_id"), $request->get("city"), $request->get("country"), $request->get("plan_id"));
-        return $r2;
+        return $response;
         if (strpos($response, "ACCOUNT_CREATED_") !== false) {
             if (($request->get("admin_id") == 2) || ($request->get("admin_id") == 42)) {
                 $company = new companyMaster;
